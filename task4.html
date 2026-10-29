@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Links Preview</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin: 18px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box img {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 12px 13px 45px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: 2px solid #2874f0;
+        }
+
+        button, .visit {
+            display: inline-block;
+            border: none;
+            border-radius: 6px;
+            padding: 11px 18px;
+            background: #2874f0;
+            color: white;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #submitBtn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #message {
+            color: #c62828;
+        }
+
+        #preview {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 6px solid;
+            overflow-wrap: anywhere;
+        }
+
+        .preview-card img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-info h3 {
+            margin: 0 0 6px;
+        }
+
+        .card-info p {
+            margin: 0;
+            color: #444;
+            overflow-wrap: anywhere;
+        }
+
+        /* Platform-specific styles */
+        .instagram {
+            background: #fff0f5;
+            border-color: #e4405f;
+        }
+
+        .instagram .visit {
+            background: #e4405f;
+        }
+
+        .linkedin {
+            background: #eaf4ff;
+            border-color: #0a66c2;
+        }
+
+        .linkedin .visit {
+            background: #0a66c2;
+        }
+
+        .youtube {
+            background: #fff0f0;
+            border-color: #ff0000;
+        }
+
+        .youtube .visit {
+            background: #ff0000;
+        }
+
+        .facebook {
+            background: #edf3ff;
+            border-color: #1877f2;
+        }
+
+        .facebook .visit {
+            background: #1877f2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px;
+            }
+
+            .preview-card {
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .preview-card img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .visit {
+                padding: 9px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Social Links</h1>
+
+    <form id="socialLinksForm">
+
+        <div class="input-group">
+            <label for="instagram">Instagram URL</label>
+            <div class="input-box">
+                <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="">
+                <input type="url" id="instagram"
+                    placeholder="https://www.instagram.com/username">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="linkedin">LinkedIn URL</label>
+            <div class="input-box">
+                <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="">
+                <input type="url" id="linkedin"
+                    placeholder="https://www.linkedin.com/in/username">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="youtube">YouTube URL</label>
+            <div class="input-box">
+                <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">
+                <input type="url" id="youtube"
+                    placeholder="https://www.youtube.com/@username">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="facebook">Facebook URL</label>
+            <div class="input-box">
+                <img src="https://cdn.simpleicons.org/facebook/1877F2" alt="">
+                <input type="url" id="facebook"
+                    placeholder="https://www.facebook.com/username">
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn">Create Preview Cards</button>
+
+    </form>
+
+    <p id="message" role="alert"></p>
+
+    <h2>Profile Preview</h2>
+    <section id="preview" aria-live="polite"></section>
+
+</div>
+
+<script>
+    const form = document.getElementById("socialLinksForm");
+    const preview = document.getElementById("preview");
+    const message = document.getElementById("message");
+
+    const platforms = [
+        {
+            id: "instagram",
+            name: "Instagram",
+            domain: "instagram.com",
+            className: "instagram",
+            logo: "https://cdn.simpleicons.org/instagram/E4405F"
+        },
+        {
+            id: "linkedin",
+            name: "LinkedIn",
+            domain: "linkedin.com",
+            className: "linkedin",
+            logo: "https://cdn.simpleicons.org/linkedin/0A66C2"
+        },
+        {
+            id: "youtube",
+            name: "YouTube",
+            domain: "youtube.com",
+            className: "youtube",
+            logo: "https://cdn.simpleicons.org/youtube/FF0000"
+        },
+        {
+            id: "facebook",
+            name: "Facebook",
+            domain: "facebook.com",
+            className: "facebook",
+            logo: "https://cdn.simpleicons.org/facebook/1877F2"
+        }
+    ];
+
+    function getHandle(url, platform) {
+        const parts = url.pathname.split("/").filter(Boolean);
+
+        if (platform.id === "youtube" &&
+            parts[0] === "channel" && parts[1]) {
+            return parts[1];
+        }
+
+        if (platform.id === "youtube" &&
+            parts[0] === "c" && parts[1]) {
+            return parts[1];
+        }
+
+        if (platform.id === "linkedin" &&
+            parts[0] === "in" && parts[1]) {
+            return parts[1];
+        }
+
+        if (platform.id === "linkedin" &&
+            parts[0] === "company" && parts[1]) {
+            return parts[1];
+        }
+
+        return parts[0] || "Profile";
+    }
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        preview.replaceChildren();
+        message.textContent = "";
+
+        let count = 0;
+        let hasError = false;
+
+        platforms.forEach(function(platform) {
+            const value = document.getElementById(platform.id).value.trim();
+
+            if (!value) {
+                return;
+            }
+
+            let url;
+
+            try {
+                url = new URL(value);
+            } catch {
+                message.textContent = "Please enter a valid URL.";
+                hasError = true;
+                return;
+            }
+
+            const hostname = url.hostname.toLowerCase();
+
+            if (
+                url.protocol !== "https:" ||
+                !(hostname === platform.domain ||
+                  hostname.endsWith("." + platform.domain))
+            ) {
+                message.textContent =
+                    "Please enter a valid HTTPS " +
+                    platform.name + " URL.";
+                hasError = true;
+                return;
+            }
+
+            const handle = getHandle(url, platform);
+
+            const card = document.createElement("article");
+            card.className = "preview-card " + platform.className;
+
+            const logo = document.createElement("img");
+            logo.src = platform.logo;
+            logo.alt = platform.name + " logo";
+
+            const info = document.createElement("div");
+            info.className = "card-info";
+
+            const title = document.createElement("h3");
+            title.textContent = platform.name;
+
+            const username = document.createElement("p");
+            username.textContent = "@" + handle;
+
+            const visit = document.createElement("a");
+            visit.className = "visit";
+            visit.href = url.href;
+            visit.target = "_blank";
+            visit.rel = "noopener noreferrer";
+            visit.textContent = "Visit";
+
+            info.append(title, username);
+            card.append(logo, info, visit);
+            preview.appendChild(card);
+
+            count++;
+        });
+
+        if (!hasError && count === 0) {
+            message.textContent = "Please enter at least one social link.";
+        }
+    });
+</script>
+
+</body>
+</html>

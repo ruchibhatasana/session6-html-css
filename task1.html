@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Links Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2874f0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1557b0;
+        }
+
+        .preview-card {
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 5px solid #2874f0;
+            overflow-wrap: anywhere;
+        }
+
+        .preview-card h3 {
+            margin-top: 0;
+        }
+
+        .preview-card a {
+            color: #2874f0;
+            text-decoration: none;
+        }
+
+        .preview-card a:hover {
+            text-decoration: underline;
+        }
+
+        #message {
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+
+        <h1>My Music Links</h1>
+
+        <form id="musicLinksForm">
+
+            <label for="spotify">Spotify Profile URL</label>
+            <input
+                type="url"
+                id="spotify"
+                placeholder="https://open.spotify.com/..."
+                >
+
+            <label for="youtube">YouTube Music Profile URL</label>
+            <input
+                type="url"
+                id="youtube"
+                placeholder="https://music.youtube.com/..."
+                >
+
+            <label for="apple">Apple Music Profile URL</label>
+            <input
+                type="url"
+                id="apple"
+                placeholder="https://music.apple.com/..."
+                >
+
+            <button type="submit">Submit Music Links</button>
+
+        </form>
+
+        <p id="message" role="alert"></p>
+
+        <section id="preview">
+            <h2>Link Preview</h2>
+        </section>
+
+    </div>
+
+    <script>
+        const form = document.getElementById("musicLinksForm");
+        const preview = document.getElementById("preview");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            preview.innerHTML = "<h2>Link Preview</h2>";
+            message.textContent = "";
+
+            const musicLinks = [
+                {
+                    name: "Spotify",
+                    id: "spotify",
+                    domain: "open.spotify.com"
+                },
+                {
+                    name: "YouTube Music",
+                    id: "youtube",
+                    domain: "music.youtube.com"
+                },
+                {
+                    name: "Apple Music",
+                    id: "apple",
+                    domain: "music.apple.com"
+                }
+            ];
+
+            let count = 0;
+
+            musicLinks.forEach(function(music) {
+                const url = document.getElementById(music.id).value.trim();
+
+                if (url !== "") {
+                    try {
+                        const parsedURL = new URL(url);
+
+                        if (
+                            parsedURL.protocol !== "https:" ||
+                            parsedURL.hostname !== music.domain
+                        ) {
+                            throw new Error("Invalid music URL");
+                        }
+
+                        const card = document.createElement("div");
+                        card.className = "preview-card";
+
+                        const title = document.createElement("h3");
+                        title.textContent = music.name;
+
+                        const link = document.createElement("a");
+                        link.href = parsedURL.href;
+                        link.textContent = "Open " + music.name + " profile";
+                        link.target = "_blank";
+                        link.rel = "noopener noreferrer";
+
+                        card.appendChild(title);
+                        card.appendChild(link);
+                        preview.appendChild(card);
+
+                        count++;
+
+                    } catch (error) {
+                        message.textContent =
+                            "Please enter a valid HTTPS URL for " +
+                            music.name + ".";
+                    }
+                }
+            });
+
+            if (count === 0 && message.textContent === "") {
+                message.textContent =
+                    "Please enter at least one music link.";
+            }
+        });
+    </script>
+</body>
+</html>

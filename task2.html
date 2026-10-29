@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamer Tag Profile</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #10111f;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 750px;
+            background: #1c1e32;
+            border: 1px solid #343653;
+            border-radius: 20px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 10px 35px #00000055;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #a855f7;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .tag {
+            color: #a855f7;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        .bio {
+            color: #c4c6dc;
+            line-height: 1.6;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .links a {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .twitch {
+            background: #9146ff;
+        }
+
+        .discord {
+            background: #5865f2;
+        }
+
+        .steam {
+            background: #2377a8;
+        }
+
+        .links a:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.15);
+        }
+
+        /* Mobile responsive design */
+        @media only screen and (max-width: 600px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 18px;
+                gap: 15px;
+            }
+
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-info {
+                width: 100%;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .links {
+                flex-direction: column;
+            }
+
+            .links a {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="profile-card">
+
+        <img
+            class="avatar"
+            src="https://placehold.co/300x300/9146ff/ffffff?text=GAMER"
+            alt="Gamer avatar">
+
+        <section class="profile-info">
+
+            <span class="tag">Player Profile</span>
+
+            <h1>ShadowX</h1>
+
+            <p class="bio">
+                🎮 Casual gamer | Competitive player<br>
+                Playing games, making memories, and leveling up!
+            </p>
+
+            <nav class="links" aria-label="Gaming profiles">
+                <a class="twitch"
+                   href="https://www.twitch.tv/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch
+                </a>
+
+                <a class="discord"
+                   href="https://discord.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Discord
+                </a>
+
+                <a class="steam"
+                   href="https://store.steampowered.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Steam
+                </a>
+            </nav>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

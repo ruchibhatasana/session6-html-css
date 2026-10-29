@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Links Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .input-group {
+            margin: 18px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box img {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 12px 13px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2874f0;
+            box-shadow: 0 0 5px #2874f055;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #e23744;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #c92d39;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+      <div class="container">
+
+        <h2>Add Your Social Links</h2>
+
+        <form>
+            <div class="input-group">
+                <label for="instagram">Instagram</label>
+                <div class="input-box">
+                    <img src="https://cdn.simpleicons.org/instagram/E4405F"
+                         alt="">
+                    <input type="url" id="instagram"
+                           placeholder="https://instagram.com/yourname">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="linkedin">LinkedIn</label>
+                <div class="input-box">
+                    <img src="https://cdn.simpleicons.org/linkedin/0A66C2"
+                         alt="">
+                    <input type="url" id="linkedin"
+                           placeholder="https://linkedin.com/in/yourname">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="youtube">YouTube</label>
+                <div class="input-box">
+                    <img src="https://cdn.simpleicons.org/youtube/FF0000"
+                         alt="">
+                    <input type="url" id="youtube"
+                           placeholder="https://youtube.com/@yourname">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="facebook">Facebook</label>
+                <div class="input-box">
+                    <img src="https://cdn.simpleicons.org/facebook/1877F2"
+                         alt="">
+                    <input type="url" id="facebook"
+                           placeholder="https://facebook.com/yourname">
+                </div>
+            </div>
+
+            <button type="submit">Save Links</button>
+        </form>
+
+    </div>
+
+</body>
+</html>
